@@ -35,4 +35,14 @@ getValidationFns(function(err, fns){
 	code += "//" + dont_edit_msg + "\n";
 
 	fs.writeFileSync("./index.js", code);
+
+	////////////////////////////////////////////////////////////////
+	//
+	// package.json
+	//
+	var json = require("./package.json")
+	json.files = ["index.js"].concat(_.map(fns, function(fn){
+		return "v/" + fn + ".js";
+	}))
+	fs.writeFileSync("./package.json", JSON.stringify(json, undefined, 2));
 });

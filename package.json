@@ -27,5 +27,18 @@
   },
   "devDependencies": {
     "tape": "^4.4.0"
-  }
+  },
+  "files": [
+    "index.js",
+    "v/blankOr.js",
+    "v/currency.js",
+    "v/email.js",
+    "v/integer.js",
+    "v/limitInputLength.js",
+    "v/optional.js",
+    "v/percent.js",
+    "v/phone.js",
+    "v/positiveInteger.js",
+    "v/required.js"
+  ]
 }
