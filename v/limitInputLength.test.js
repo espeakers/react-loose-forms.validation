@@ -3,7 +3,7 @@ var test = require('tape');
 var limitInputLength = require('./limitInputLength');
 
 test('limitInputLength', function(t){
-	var v4 = limitInputLength(4);
+  var v4 = limitInputLength(4);
 
   t.equals(v4(" 10 "), true);
   t.equals(v4("abcd"), true);
