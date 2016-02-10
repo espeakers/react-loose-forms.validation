@@ -4,7 +4,7 @@
   "description": "A grab bag of validation functions for react-loose-forms",
   "main": "index.js",
   "scripts": {
-    "test": "node tests.js",
+    "test": "node tests.js | tap-min",
     "prepublish": "node build.js"
   },
   "repository": {
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "js-comments": "^0.5.4",
+    "tap-min": "^1.1.0",
     "tape": "^4.4.0"
   },
   "files": [

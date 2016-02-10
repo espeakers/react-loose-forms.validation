@@ -1,7 +1,7 @@
-var isBlank = require("../utils/isBlank");
+var _ = require('lodash');
 
 module.exports = function(length){
   return function(value){
-    return isBlank(value) || (value.length <= length) || ("This field must be less than " + length + " characters");
+    return (_.isString(value) && (value.length <= length)) || ("This field must be less than " + length + " characters");
   };
 };
