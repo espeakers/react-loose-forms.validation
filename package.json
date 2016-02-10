@@ -26,10 +26,12 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
+    "js-comments": "^0.5.4",
     "tape": "^4.4.0"
   },
   "files": [
     "index.js",
+    "utils/isBlank",
     "v/blankOr.js",
     "v/currency.js",
     "v/email.js",

@@ -1,5 +1,7 @@
 var _ = require("lodash");
 var fs = require("fs");
+var isBlank = require("./utils/isBlank");
+var comments = require('js-comments');
 
 var getValidationFns = function(callback){
 	fs.readdir("./v/", function(err, files){
@@ -8,6 +10,12 @@ var getValidationFns = function(callback){
 			return file.split(".")[0];
 		}).sort());
 	});
+};
+
+var getFnComments = function(fn){
+	var str = fs.readFileSync("./v/" + fn + ".js", "utf8");
+	var blocks = comments.parse(str, {});
+	return _.reject(_.map(blocks, "description"), isBlank).join("\n\n");
 };
 
 var dont_edit_msg = "Don't edit this by hand, see build.js";
@@ -41,7 +49,10 @@ getValidationFns(function(err, fns){
 	// package.json
 	//
 	var json = require("./package.json")
-	json.files = ["index.js"].concat(_.map(fns, function(fn){
+	json.files = [
+		"index.js",
+		"utils/isBlank"
+	].concat(_.map(fns, function(fn){
 		return "v/" + fn + ".js";
 	}))
 	fs.writeFileSync("./package.json", JSON.stringify(json, undefined, 2));
@@ -50,11 +61,12 @@ getValidationFns(function(err, fns){
 	//
 	// README.md
 	//
-	var readme = fs.readFileSync("./readme-template.md").toString();
+	var readme = fs.readFileSync("./readme-template.md", "utf8");
 
 	readme = readme.replace("{{fn docs}}", _.map(fns, function(fn){
-		//TODO also get comments from the fn
-		return "### " + fn;
+		var doc = "### " + fn + "\n";
+		doc += getFnComments(fn);
+		return doc.trim();
 	}).join("\n\n"));
 
 	var md_dont_edit_msg = "";
