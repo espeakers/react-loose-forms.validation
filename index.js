@@ -5,6 +5,7 @@
 module.exports = {
   blankOr: require('./v/blankOr'),
   currency: require('./v/currency'),
+  date: require('./v/date'),
   email: require('./v/email'),
   integer: require('./v/integer'),
   limitInputLength: require('./v/limitInputLength'),

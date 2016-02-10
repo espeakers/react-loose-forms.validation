@@ -49,6 +49,8 @@ For example:
 
 ### currency
 
+### date
+
 ### email
 
 ### integer

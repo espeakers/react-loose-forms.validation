@@ -35,6 +35,7 @@
     "utils/isBlank",
     "v/blankOr.js",
     "v/currency.js",
+    "v/date.js",
     "v/email.js",
     "v/integer.js",
     "v/limitInputLength.js",
