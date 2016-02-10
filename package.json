@@ -1,6 +1,6 @@
 {
   "name": "react-loose-forms.validation",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A grab bag of validation functions for react-loose-forms",
   "main": "index.js",
   "scripts": {
