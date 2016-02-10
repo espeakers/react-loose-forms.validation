@@ -6,9 +6,9 @@ var comments = require('js-comments');
 var getValidationFns = function(callback){
   fs.readdir("./v/", function(err, files){
     if(err) return callback(err);
-    callback(null, _.map(files, function(file){
+    callback(null, _.unique(_.map(files, function(file){
       return file.split(".")[0];
-    }).sort());
+    })).sort());
   });
 };
 
@@ -22,6 +22,20 @@ var getFnComments = function(fn){
 
 var dont_edit_msg = "Don't edit this by hand, see build.js";
 
+var buildJSFile = function(file, js_code){
+  var code = "";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += js_code + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  code += "//" + dont_edit_msg + "\n";
+  fs.writeFileSync(file, code);
+};
+
 
 getValidationFns(function(err, fns){
 
@@ -30,21 +44,40 @@ getValidationFns(function(err, fns){
   // index.js
   //
   var code = "";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
   code += "module.exports = {\n";
   code += _.map(fns, function(fn){
     return "  " + fn + ": require('./v/" + fn + "')";
   }).join(",\n") + "\n";
-  code += "};\n";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
-  code += "//" + dont_edit_msg + "\n";
+  code += "};";
+  buildJSFile("./index.js", code);
 
-  fs.writeFileSync("./index.js", code);
+  ////////////////////////////////////////////////////////////////
+  //
+  // build test files
+  //
+  _.each(fns, function(fn){
+    var test_file = "./v/" + fn + ".test.js";
+    if(fs.existsSync(test_file)){
+      return;
+    }
+    var code = "";
+    code += "var test = require('tape');\n";
+    code += "var "+fn+" = require('./" + fn + "');\n";
+    code += "\n";
+    code += "test('" + fn + "', function(t){\n";
+    code += "  t.ok(false, 'TODO write tests');\n";
+    code += "  t.end();\n";
+    code += "});\n";
+    fs.writeFileSync(test_file, code);
+  });
+
+  ////////////////////////////////////////////////////////////////
+  //
+  // tests.js
+  //
+  buildJSFile("./tests.js", _.map(fns, function(fn){
+    return "require('./v/" + fn + ".test');";
+  }).join("\n"));
 
   ////////////////////////////////////////////////////////////////
   //

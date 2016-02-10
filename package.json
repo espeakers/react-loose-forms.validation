@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/espeakers/react-loose-forms.validation#readme",
   "dependencies": {
-    "lodash": "^3.10.1",
-    "tape": "^4.4.0"
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "js-comments": "^0.5.4"
+    "js-comments": "^0.5.4",
+    "tape": "^4.4.0"
   },
   "files": [
     "index.js",
