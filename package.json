@@ -4,7 +4,8 @@
   "description": "A grab bag of validation functions for react-loose-forms",
   "main": "index.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "node tests.js",
+    "prepublish": "node build.js"
   },
   "repository": {
     "type": "git",
