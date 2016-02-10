@@ -57,7 +57,7 @@ getValidationFns(function(err, fns){
   ].concat(_.map(fns, function(fn){
     return "v/" + fn + ".js";
   }))
-  fs.writeFileSync("./package.json", JSON.stringify(json, undefined, 2));
+  fs.writeFileSync("./package.json", JSON.stringify(json, undefined, 2) + "\n");
 
   ////////////////////////////////////////////////////////////////
   //
