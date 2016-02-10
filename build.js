@@ -45,4 +45,24 @@ getValidationFns(function(err, fns){
 		return "v/" + fn + ".js";
 	}))
 	fs.writeFileSync("./package.json", JSON.stringify(json, undefined, 2));
+
+	////////////////////////////////////////////////////////////////
+	//
+	// README.md
+	//
+	var readme = fs.readFileSync("./readme-template.md").toString();
+
+	readme = readme.replace("{{fn docs}}", _.map(fns, function(fn){
+		//TODO also get comments from the fn
+		return "### " + fn;
+	}).join("\n\n"));
+
+	var md_dont_edit_msg = "";
+	md_dont_edit_msg += "[//]: # (Don't edit this by hand, edit readme-template.md)\n";
+	md_dont_edit_msg += "[//]: # (Don't edit this by hand, edit readme-template.md)\n";
+	md_dont_edit_msg += "[//]: # (Don't edit this by hand, edit readme-template.md)\n";
+	md_dont_edit_msg += "[//]: # (Don't edit this by hand, edit readme-template.md)\n";
+	readme = md_dont_edit_msg + readme + md_dont_edit_msg;
+
+	fs.writeFileSync("./README.md", readme);
 });
