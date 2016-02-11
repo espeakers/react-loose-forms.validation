@@ -86,7 +86,7 @@ getValidationFns(function(err, fns){
   var json = require("./package.json")
   json.files = [
     "index.js",
-    "utils/isBlank"
+    "utils/isBlank.js"
   ].concat(_.map(fns, function(fn){
     return "v/" + fn + ".js";
   }))
